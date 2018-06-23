@@ -10,6 +10,8 @@
             <label for="friendcodeinput">Friend Code</label>
             <input id="friendcodeinput" type="text"></input>
             <button onclick="updateQR()">Generate QR Code</button>
+            <br>
+            <button onclick="saveImage()">Save Image (mobile)</button>
             <canvas id="textCanvas" height=20 style="visibility: hidden"></canvas>
             <div id="area" style="visibility: hidden"></div>
     </body>
@@ -72,5 +74,11 @@
                 filter: QR_FILTER
             }).make(QR_CONTAINER);
         }
+    }
+
+    function saveImage(){
+        var image = document.getElementById("outputCanvas").toDataURL("image/png").replace("image/png", "image/octet-stream");
+
+        window.location.href=image;
     }
 </script>
