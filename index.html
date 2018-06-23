@@ -29,7 +29,10 @@
     <div id="main_content_wrap" class="outer">
         <section id="main_content" class="inner">
             
-            
+            <select id="imageSelection">
+                <option value="img/pogo-sqr.png">Original</option>
+                <option value="img/pogo-pika.jpg">with Pikachu</option>
+            </select>
 
             <canvas id="outputCanvas" height=210 width=210></canvas>
             <br>
@@ -94,12 +97,13 @@
 
     function updateQR(){
 
-        var inputQRCode = document.getElementById("friendcodeinput").value;
+        var inputQRCode = document.getElementById("friendcodeinput").value,
+        imageChoice = document.getElementById("imageSelection");
 
         if(inputQRCode){
             // https://github.com/kciter/qart.js
             var QR_CONTENT = inputQRCode;
-            var QR_IMAGE = "img/pogo-sqr.png";
+            var QR_IMAGE = imageChoice.options[imageChoice.selectedIndex].value;
             var QR_FILTER = "color";
             var QR_CONTAINER = document.getElementById("area");
 
