@@ -1,0 +1,76 @@
+<html>
+    <head>
+
+    </head>
+
+    <body>
+
+            <canvas id="outputCanvas" height=210 width=210></canvas>
+            <br>
+            <label for="friendcodeinput">Friend Code</label>
+            <input id="friendcodeinput" type="text"></input>
+            <button onclick="updateQR()">Generate QR Code</button>
+            <canvas id="textCanvas" height=20 style="visibility: hidden"></canvas>
+            <div id="area" style="visibility: hidden"></div>
+    </body>
+
+
+</html>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/qartjs/1.0.2/qart.min.js"></script>
+
+<script>
+
+    // Target the #area div for changes. i.e. injection of QR canvas
+    var targetNode = document.getElementById('area');
+
+    // Options for the observer (which mutations to observe)
+    var config = { childList: true, subtree: true };
+
+    // Function to execute when mutations are observed
+    var appendTextOnModify = function(mutationsList) {
+        for(var mutation of mutationsList) {
+            var qrCanvas = document.getElementById("area").querySelector("canvas");
+            var outputCanvas = document.getElementById("outputCanvas");
+            addTextToCanvas(qrCanvas, outputCanvas);
+        }
+    };
+
+    // Create an observer instance linked to the executing function
+    var observer = new MutationObserver(appendTextOnModify);
+
+    // Start observing the target node for configured mutations
+    observer.observe(targetNode, config);
+
+
+    function addTextToCanvas(inputCanvas, outputCanvas) {
+        var destCtx = outputCanvas.getContext('2d');
+        destCtx.drawImage(inputCanvas, 0, 0);
+        var y = inputCanvas.height + 10;
+        destCtx.fillStyle = "black";
+        destCtx.font = "12px Arial";
+        destCtx.textBaseline = "bottom";
+        destCtx.fillText( "FC: " + document.getElementById("friendcodeinput").value, 10, y );
+        return context;  
+    };
+
+    function updateQR(){
+
+        var inputQRCode = document.getElementById("friendcodeinput").value;
+
+        if(inputQRCode){
+
+            // https://github.com/kciter/qart.js
+            var QR_CONTENT = inputQRCode;
+            var QR_IMAGE = "pogo.jpg";
+            var QR_FILTER = "color";
+            var QR_CONTAINER = document.getElementById("area");
+
+            new QArt({
+                value: QR_CONTENT,
+                imagePath: QR_IMAGE,
+                filter: QR_FILTER
+            }).make(QR_CONTAINER);
+        }
+    }
+</script>
