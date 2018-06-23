@@ -29,13 +29,16 @@
     <div id="main_content_wrap" class="outer">
         <section id="main_content" class="inner">
             
+            
+
             <canvas id="outputCanvas" height=210 width=210></canvas>
             <br>
             <label for="friendcodeinput">Friend Code</label>
             <input id="friendcodeinput" type="text"></input>
+            <br>
             <button onclick="updateQR()">Generate QR Code</button>
             <br>
-            <button onclick="saveImage()">Save Image (mobile)</button>
+            <button onclick="saveImage()">Save Image</button>
             <canvas id="textCanvas" height=20 style="display: none;"></canvas>
             <div id="area" style="display: none;"></div>
         </section>
@@ -53,8 +56,6 @@
 
 
 </html>
-
-
 
 <script>
 
@@ -96,7 +97,6 @@
         var inputQRCode = document.getElementById("friendcodeinput").value;
 
         if(inputQRCode){
-
             // https://github.com/kciter/qart.js
             var QR_CONTENT = inputQRCode;
             var QR_IMAGE = "img/pogo-sqr.png";
