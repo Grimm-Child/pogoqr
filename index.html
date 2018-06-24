@@ -19,10 +19,13 @@
 
         <section id="main_content" class="inner">
 
-            <div class="label-holder">
-                <label for="derivedFriendCode" style="display: none;">Friend Code:</label>
-                <input id="derivedFriendCode" type="text" style="display: none;"></input>
-                <button id="copyFriendCode" style="display: none;">Copy to clipboard</button>
+            <div id="derived-code-container" style="display: none;">
+                <div class="label-holder">
+                    <label for="derivedFriendCode">Friend Code:</label>
+                    <input id="derivedFriendCode" type="text"></input>
+                </div>
+
+                <button id="copyFriendCode">Copy to clipboard</button>
             </div>
 
             <canvas id="outputCanvas" height=410 width=410></canvas>
@@ -124,17 +127,15 @@
     var url_string = window.location.href
     var url = new URL(url_string);
     var fc = url.searchParams.get("fc");
+    var derivedCodeContainer = document.getElementById("derived-code-container");
     var derivedCodeField = document.getElementById("derivedFriendCode");
     var copyCodeButton = document.getElementById("copyFriendCode");
 
-    if(fc){  
-        derivedCodeField.style = 'display: inline-block;';
+    if(fc) {  
+        derivedCodeContainer.style = 'display: block;';
         derivedCodeField.value = fc;
-        copyCodeButton.style = 'display: inline-block;';
-    }
-    else{
-        derivedCodeField.style = 'display: none;';
-        copyCodeButton.style = 'display: none;';
+    } else {
+        derivedCodeContainer.style = 'display: none;';
     }
 
     function copyFriendCode() {
