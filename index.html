@@ -6,59 +6,45 @@
     
         <link rel="stylesheet" type="text/css" href="style/normalize.css">
         <link rel="stylesheet" type="text/css" href="style/styles.css">
-        <link rel="stylesheet" type="text/css" href="style/gh-pages-slate-stylesheet.css">
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet">
 
         <script src="//cdnjs.cloudflare.com/ajax/libs/qartjs/1.1.1/qart.min.js"></script>
     </head>
 
     <body>
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-            <header class="inner">
-              <a id="forkme_banner" href="https://github.com/chrislennon/pogoqr">View on GitHub</a>
-              <h1 id="project_title">PoGo QR Share</h1>
-              <h1 id="project_title">Pokémon Go QR Code</h1>
-              <h2 id="project_tagline">Share your friend ID inside an image.</h2>
-            </header>
-    </div>
-    
-    <section class="outer">
-        <!-- Nothing to see here -->
-    </section>
+        <header class="inner">
+            <h1 id="project_title">Pokémon Go QR Code Generator</h1>
+            <h2 id="project_tagline">Share your friend ID inside an image.</h2>
+        </header>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
         <section id="main_content" class="inner">
-            
-            <select id="imageSelection">
-                <option value="./img/pogo-sqr.png">Original</option>
-                <option value="./img/pogo-pika.jpg">with Pikachu</option>
-            </select>
-
             <canvas id="outputCanvas" height=210 width=210></canvas>
-            <br>
-            <label for="friendcodeinput">Friend Code</label>
-            <input id="friendcodeinput" type="text"></input>
-            <br>
+
+            <div class="label-holder">
+                <label for="imageSelection">Background image:</label>
+                <select id="imageSelection">
+                    <option value="./img/pogo-sqr.png">Logo</option>
+                    <option value="./img/pogo-pika.jpg">with Pikachu</option>
+                </select>
+            </div> 
+
+            <div class="label-holder">
+                <label for="friendcodeinput">Friend Code:</label>
+                <input id="friendcodeinput" type="text"></input>
+            </div>
+
             <button onclick="updateQR()">Generate QR Code</button>
-            <br>
+
             <button onclick="saveImage()">Save Image</button>
+
             <canvas id="textCanvas" height=20 style="display: none;"></canvas>
             <div id="area" style="display: none;"></div>
         </section>
-    </div>
 
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
         <footer class="inner">
           <p>Application maintained on <a href="https://github.com/chrislennon/pogoqr">GitHub</a></p>
         </footer>
-      </div>
-
     </body>
-
-
 </html>
 
 <script>
