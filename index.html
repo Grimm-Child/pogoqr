@@ -35,7 +35,7 @@
 
             <button onclick="updateQR()">Generate QR Code</button>
 
-            <button onclick="saveImage()">Save Image</button>
+            <button id="saveImage">Save Image</button>
 
             <canvas id="textCanvas" height=20 style="display: none;"></canvas>
             <div id="area" style="display: none;"></div>
@@ -110,9 +110,13 @@
         }
     }
 
-    function saveImage(){
-        var image = document.getElementById("outputCanvas").toDataURL("image/png").replace("image/png", "image/octet-stream");
+    // Event Listener for save button
+    document.getElementById('saveImage').addEventListener('click', function() {
+        var imageData = document.getElementById("outputCanvas").toDataURL("image/png").replace("image/png", "image/octet-stream");
+        var anchor = document.createElement('a');
+        anchor.setAttribute('download', document.getElementById("friendcodeinput").value + '.png');
+        anchor.setAttribute('href', imageData);
+        anchor.click();
+    });
 
-        window.location.href=image;
-    }
 </script>
