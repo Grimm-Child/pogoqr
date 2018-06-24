@@ -103,3 +103,8 @@ button:focus {
 footer {
     font-size: 11px;
 }
+
+.copy {
+    color: red;
+    font-size: 0.8em;
+}
