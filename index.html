@@ -18,6 +18,13 @@
         </header>
 
         <section id="main_content" class="inner">
+
+            <div class="label-holder">
+                <label for="derivedFriendCode" style="display: none;">Friend Code:</label>
+                <input id="derivedFriendCode" type="text" style="display: none;"></input>
+                <button id="copyFriendCode" style="display: none;">Copy to clipboard</button>
+            </div>
+
             <canvas id="outputCanvas" height=410 width=410></canvas>
 
             <div class="label-holder">
@@ -33,9 +40,12 @@
                 <input id="friendcodeinput" type="text"></input>
             </div>
 
-            <button onclick="updateQR()">Generate QR Code</button>
+            <button id="generateCode">Generate QR Code</button>
 
             <button id="saveImage">Save Image</button>
+            <br>
+            <input id="shareUrl" type="text" style="display: none;"></input>
+            <br>
 
             <canvas id="textCanvas" height=20 style="display: none;"></canvas>
             <div id="area" style="display: none;"></div>
@@ -109,6 +119,43 @@
             }).make(QR_CONTAINER);
         }
     }
+
+
+    var url_string = window.location.href
+    var url = new URL(url_string);
+    var fc = url.searchParams.get("fc");
+    var derivedCodeField = document.getElementById("derivedFriendCode");
+    var copyCodeButton = document.getElementById("copyFriendCode");
+
+    if(fc){  
+        derivedCodeField.style = 'display: inline-block;';
+        derivedCodeField.value = fc;
+        copyCodeButton.style = 'display: inline-block;';
+    }
+    else{
+        derivedCodeField.style = 'display: none;';
+        copyCodeButton.style = 'display: none;';
+    }
+
+    function copyFriendCode() {
+        var copyText = document.getElementById("derivedFriendCode");
+        copyText.select();
+        document.execCommand("copy");
+        console.log("Copied the text: " + copyText.value);
+    }
+
+    // Event listener for copy friend code
+    document.getElementById('copyFriendCode').addEventListener('click', function() {
+        copyFriendCode();
+    });
+
+    // Event listener for copy friend code
+    document.getElementById('generateCode').addEventListener('click', function() {
+        updateQR();
+        var shareText = document.getElementById('shareUrl');
+        shareText.value = encodeURI(window.location.href + '?fc='+ document.getElementById("friendcodeinput").value);
+        shareText.style = 'display: inline-block;';
+    });
 
     // Event Listener for save button
     document.getElementById('saveImage').addEventListener('click', function() {
