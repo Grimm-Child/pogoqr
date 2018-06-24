@@ -108,7 +108,7 @@
 
         if(inputQRCode){
             // https://github.com/kciter/qart.js
-            var QR_CONTENT = inputQRCode;
+            var QR_CONTENT = encodeURI(window.location.href + '?fc='+ inputQRCode);
             var QR_IMAGE = imageChoice.options[imageChoice.selectedIndex].value;
             var QR_FILTER = "color";
             var QR_CONTAINER = document.getElementById("area");
