@@ -18,7 +18,7 @@
         </header>
 
         <section id="main_content" class="inner">
-            <canvas id="outputCanvas" height=210 width=210></canvas>
+            <canvas id="outputCanvas" height=410 width=410></canvas>
 
             <div class="label-holder">
                 <label for="imageSelection">Background image:</label>
@@ -103,7 +103,9 @@
             new QArt({
                 value: QR_CONTENT,
                 imagePath: QR_IMAGE,
-                filter: QR_FILTER
+                filter: QR_FILTER,
+                size: 400,
+                version: 5
             }).make(QR_CONTAINER);
         }
     }
