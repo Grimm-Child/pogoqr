@@ -42,8 +42,30 @@
 
             <div class="label-holder">
                 <label for="friendcodeinput">Friend Code:</label>
-                <input id="friendcodeinput" type="text"></input>
+                <input id="friendcodeinput" type="text" maxlength="14"></input>
             </div>
+
+            <div class="label-holder">
+                <h4>Advanced Settings</h4>
+                    <label for="sizeSelection">Size:</label>
+                    <select id="sizeSelection">
+                        <option value="200">200x200</option>
+                        <option value="300">300x300</option>
+                        <option value="400" selected>400x400</option>
+                        <option value="500">500x500</option>
+                        <option value="600">600x600</option>
+                    </select>
+                    <label for="versionSelection">Version: <span>(higher <a href="http://www.qrcode.com/en/about/version.html" target="_blank">versions</a> hold more data, but tougher to scan)</span></label>
+                    
+                    <select id="versionSelection">
+                        <option value="5">5</option>
+                        <option value="10" selected>10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                    </select>
+                </div> 
+    
 
             <button id="generateCode">Generate QR Code</button>
 
@@ -93,13 +115,22 @@
         destCtx.fillStyle = "black";
         destCtx.font = "12px Arial";
         destCtx.textBaseline = "bottom";
-        destCtx.fillText(document.getElementById("friendcodeinput").value, 10, y );
+        destCtx.textAlign="center"; 
+        destCtx.fillText(document.getElementById("friendcodeinput").value, outputCanvas.width/2, y );
         return;  
     };
+
+    function updateCanvasSizes(sizePx){
+        // Changing canvas sizes after render doesnt maintain image
+        var outputCanvas = document.getElementById("outputCanvas");
+        outputCanvas.width = sizePx;
+        outputCanvas.height = sizePx;
+    }
 
     function updateQR(){
 
         // clear existing output canvas
+        updateCanvasSizes(document.getElementById("sizeSelection").value);
         var outputCanvas = document.getElementById("outputCanvas");
         context = outputCanvas.getContext('2d');
         context.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
@@ -119,8 +150,8 @@
                 value: QR_CONTENT,
                 imagePath: QR_IMAGE,
                 filter: QR_FILTER,
-                size: 400,
-                version: 5
+                size: document.getElementById("sizeSelection").value - 10,
+                version: document.getElementById("versionSelection").value
             }).make(QR_CONTAINER);
         }
     }
