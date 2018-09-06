@@ -9,26 +9,16 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet">
 
         <script src="./lib/qart-1.1.2-mod.js"></script>
-        <script src="./lib/clipboard-polyfill.js"></script>
     </head>
 
     <body>
         <header class="inner">
             <h1 id="project_title">Pokémon Go QR Code Generator</h1>
             <h2 id="project_tagline">Share your friend ID inside an image.</h2>
-            <h4>QR Code will redirect to this page with 'copy to clipboard' functionality.</h4>
+            <h4>QR Code can be scanned within the Pokémon Go app.</h4>
         </header>
 
         <section id="main_content" class="inner">
-
-            <div id="derived-code-container" style="display: none;">
-                <div class="label-holder">
-                    <label for="derivedFriendCode">Friend Code:</label>
-                    <input id="derivedFriendCode" type="text"></input>
-                </div>
-                <span id="copyAck" class="copy" style="display: none;">Copied!</span>
-                <button id="copyFriendCode">Copy to clipboard</button>
-            </div>
 
             <canvas id="outputCanvas" height=410 width=410></canvas>
 
@@ -58,8 +48,10 @@
                     <label for="versionSelection">Version: <span>(higher <a href="http://www.qrcode.com/en/about/version.html" target="_blank">versions</a> hold more data, but tougher to scan)</span></label>
                     
                     <select id="versionSelection">
-                        <option value="7">7</option>
-                        <option value="10" selected>10</option>
+                        <option value="2">2</option>
+                        <option value="4">4</option>
+                        <option value="7" selected>7</option>
+                        <option value="10">10</option>
                         <option value="20">20</option>
                         <option value="30">30</option>
                         <option value="40">40</option>
@@ -70,8 +62,6 @@
             <button id="generateCode">Generate QR Code</button>
 
             <button id="saveImage">Save Image</button>
-            <br>
-            <input id="shareUrl" type="text" style="display: none;"></input>
             <br>
 
             <canvas id="textCanvas" height=20 style="display: none;"></canvas>
@@ -141,7 +131,7 @@
 
         if(inputQRCode){
             // https://github.com/kciter/qart.js
-            var QR_CONTENT = encodeURI(window.location.href + '?fc='+ inputQRCode);
+            var QR_CONTENT = inputQRCode;
             var QR_IMAGE = imageChoice.options[imageChoice.selectedIndex].value;
             var QR_FILTER = "color";
             var QR_CONTAINER = document.getElementById("area");
@@ -156,39 +146,9 @@
         }
     }
 
-
-    var url_string = window.location.href
-    var url = new URL(url_string);
-    var fc = url.searchParams.get("fc");
-    var derivedCodeContainer = document.getElementById("derived-code-container");
-    var derivedCodeField = document.getElementById("derivedFriendCode");
-    var copyCodeButton = document.getElementById("copyFriendCode");
-
-    if(fc) {  
-        derivedCodeContainer.style = 'display: block;';
-        derivedCodeField.value = fc;
-    } else {
-        derivedCodeContainer.style = 'display: none;';
-    }
-
-    function copyFriendCode() {
-        var copyText = document.getElementById("derivedFriendCode"),
-        copyAck = document.getElementById("copyAck");
-        copyAck.style = 'display: block;';
-        clipboard.writeText(copyText.value);
-    }
-
-    // Event listener for copy friend code
-    document.getElementById('copyFriendCode').addEventListener('click', function() {
-        copyFriendCode();
-    });
-
     // Event listener for copy friend code
     document.getElementById('generateCode').addEventListener('click', function() {
         updateQR();
-        var shareText = document.getElementById('shareUrl');
-        shareText.value = encodeURI(window.location.href + '?fc='+ document.getElementById("friendcodeinput").value);
-        shareText.style = 'display: inline-block;';
     });
 
     // Event Listener for save button
