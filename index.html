@@ -58,8 +58,8 @@
                     <label for="versionSelection">Version: <span>(higher <a href="http://www.qrcode.com/en/about/version.html" target="_blank">versions</a> hold more data, but tougher to scan)</span></label>
                     
                     <select id="versionSelection">
-                        <option value="7">7</option>
-                        <option value="10" selected>10</option>
+                        <option value="7" selected>7</option>
+                        <option value="10">10</option>
                         <option value="20">20</option>
                         <option value="30">30</option>
                         <option value="40">40</option>
@@ -141,7 +141,7 @@
 
         if(inputQRCode){
             // https://github.com/kciter/qart.js
-            var QR_CONTENT = encodeURI(window.location.href + '?fc='+ inputQRCode);
+            var QR_CONTENT = inputQRCode;
             var QR_IMAGE = imageChoice.options[imageChoice.selectedIndex].value;
             var QR_FILTER = "color";
             var QR_CONTAINER = document.getElementById("area");
@@ -187,7 +187,7 @@
     document.getElementById('generateCode').addEventListener('click', function() {
         updateQR();
         var shareText = document.getElementById('shareUrl');
-        shareText.value = encodeURI(window.location.href + '?fc='+ document.getElementById("friendcodeinput").value);
+        shareText.value = document.getElementById("friendcodeinput").value;
         shareText.style = 'display: inline-block;';
     });
 
